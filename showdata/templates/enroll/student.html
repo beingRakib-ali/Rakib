@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      table {
+        border-collapse: collapse;
+        border: 1px black solid;
+      }
+      tr,
+      th,
+      td {
+        border: 1px black solid;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="" method="get">
+      <h1>Django Form</h1>
+
+      <table>{{ form.as_p }}</table>
+
+      <input type="submit" value="submit">
+
+      {% if std %}
+        <h1>show data</h1>
+        <h3>{{ std }}</h3>
+        <h5>here id isn't show cause id convert into string(in models.py file use _str_ method) for found student easyly using id in database.</h5>
+        <table>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+          </tr>
+          {% comment %} Add widget in password field. charField to passwordinput {% endcomment %}
+          {% for st in std %}
+            <tr>
+              <td>{{ st.studid }}</td>
+              <td>{{ st.name }}</td>
+              <td>{{ st.email }}</td>
+              <td>{{ st.password }}</td>
+            </tr>
+          {% endfor %}
+        
+        </table>
+      {% else %}
+        <h1>No Data Found</h1>
+      {% endif %}
+    </form>
+
+    <br>
+    <br>
+    <br>
+
+    {% comment %} Render Form Fields Manually in Django   {% endcomment %}
+    <form action="" method="get">
+      <div>
+        <label for="id_name">Name:</label>
+        <input type="text" name="name" required id="id_name" />
+      </div>
+      <div>
+        <label for={{form.name.id_for_label}}>Name:</label>
+        <input type="text" name="name" required id="id_name" />
+      </div>
+      {{form.email.label_tag}}
+      {{form.email}}
+
+      <div>
+        {{form.name.label}} <br>
+        {{form.name.value}} <br>
+        {{form.name.html_name}} <br>
+        {{form.name.help_text}} <br>
+        {{form.name.field.required}} <br>
+      </div>
+    </form>
+  </body>
+</html>
